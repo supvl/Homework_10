@@ -4,8 +4,7 @@ import json
 def load_candidates() -> list[dict]:
     """
     Получение данных из JSON-файла
-    :param file_json: JSON-файл откуда берутся данные
-    :return: список с данными, полученными из JSON-файла
+    :return: список словарей с данными, полученными из JSON-файла
     """
     file_json = "candidates.json"
     with open(file_json, mode='r', encoding='utf-8') as file:
@@ -15,7 +14,7 @@ def load_candidates() -> list[dict]:
 
 def get_all() -> str:
     data_candidates = load_candidates()
-    display = '<pre>Все кандидаты:\n\n'
+    display = '<pre>\tВсе кандидаты:\n\n'
     for candidate in data_candidates:
         display += f"\tИмя - {candidate['name']}\n" \
                    f"\tПозиция - {candidate['position']}\n" \
@@ -29,13 +28,14 @@ def get_by_pk(pk: int) -> str:
     for candidate in data_candidates:
         if candidate['pk'] == pk:
             display = f"""
-                    <img src = "{candidate['picture']}">\n
-                    <pre>\n
-                    \tИмя - {candidate['name']}\n
-                    \tПозиция - {candidate['position']}\n
-                    \tНавыки - {candidate['skills']}\n
+                    <pre>
+                    \tКандидат номер {pk}:\n
+                    <img src = "{candidate['picture']}">
+                    <pre>
+                    Имя - {candidate['name']}
+                    Позиция - {candidate['position']}
+                    Навыки - {candidate['skills']}
                     </pre>
                     """
             return display
-        else:
-            return 'Нет такого кандидата'
+    return "\tНет кандидата с таким номером"
