@@ -1,4 +1,4 @@
-from utils import get_all, get_by_pk
+from utils import get_all, get_by_pk, get_by_skill
 from flask import Flask
 
 
@@ -16,5 +16,11 @@ def select_one_candidate(pk):
     one_candidate = get_by_pk(pk)
     return one_candidate
 
-app.run()
 
+@app.route("/skills/<skill>")
+def select_skill_candidate(skill):
+    skill_candidate = get_by_skill(skill)
+    return skill_candidate
+
+
+app.run()

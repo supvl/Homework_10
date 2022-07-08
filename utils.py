@@ -14,11 +14,13 @@ def load_candidates() -> list[dict]:
 
 def get_all() -> str:
     data_candidates = load_candidates()
-    display = '<pre>\tВсе кандидаты:\n\n'
+    display = '<pre>\t\tВсе кандидаты:\n'
     for candidate in data_candidates:
-        display += f"\tИмя - {candidate['name']}\n" \
-                   f"\tПозиция - {candidate['position']}\n" \
-                   f"\tНавыки - {candidate['skills']}\n\n"
+        display += f""" 
+                   Имя - {candidate['name']}
+                   Позиция - {candidate['position']}
+                   Навыки - {candidate['skills']}
+                   """
     display += '</pre>'
     return display
 
@@ -39,3 +41,18 @@ def get_by_pk(pk: int) -> str:
                     """
             return display
     return "\tНет кандидата с таким номером"
+
+
+def get_by_skill(skill_name: str) -> str:
+    data_candidates = load_candidates()
+    display = f'<pre>\t\tKандидаты с навыком {skill_name}:\n'
+    for candidate in data_candidates:
+        if skill_name.lower() in candidate['skills'].lower().split(", "):
+            display += f"""            
+                       Имя - {candidate['name']}
+                       Позиция - {candidate['position']}
+                       Навыки - {candidate['skills']}
+                       """
+    display += '</pre>'
+    return display
+
